@@ -7,22 +7,26 @@
 
 #include "vector.h"
 
-void initVector(vector_t *vector, size_t size) {
+bool initVector(vector_t *vector, size_t size) {
 	double *array = malloc(size*sizeof(double));
-	if (array) {
+	if (array) { // pointer is NULL if malloc fails
 		vector->array = array;
 		vector->size = size;
+		return true;
 	}
+	return false;
 }
 
 vector_t *newVector(size_t size) {
 	vector_t *res;
 	res = malloc(sizeof(vector_t));
-	if (res) {
-		initVector(res, size);
-		// TODO : if array is not allocated
+	if (res) {  // struct allocation is ok
+		if (initVector(res, size)) {
+			return res;
+		}
+		free(res); // struct is allocated, array not allocated
 	}
-	return res;
+	return NULL; // struct or array is not allocated
 }
 
 
@@ -57,4 +61,8 @@ void cleanVector(vector_t *vector) {
 	vector->size = 0;
 }
 
-
+void deleteVector(vector_t **vector) {
+	cleanVector(*vector);
+	free(*vector);
+	*vector=NULL;
+}

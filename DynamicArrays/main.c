@@ -9,21 +9,25 @@
 
 int main() {
 	vector_t vectorStack;
-	initVector(&vectorStack, 10);
-	fillVector(&vectorStack, 1.0);
-	displayVector(&vectorStack);
+	if (initVector(&vectorStack, 10000000000)) {
+		fillVector(&vectorStack, 1.0);
+		displayVector(&vectorStack);
+		// clean memory
+		// vectorStack : clean internal array
+		cleanVector(&vectorStack);
+
+	}
 
 	printf("\n--------\n");
 
-	vector_t * pVectorHeap = newVector(1000000);
-	fillVector(pVectorHeap, 2.0);
-	displayVector(pVectorHeap);
-
-	// clean memory
-	// vectorStack : clean internal array
-	cleanVector(&vectorStack);
-	// pVectorHeap : clean internal array + clean struct
-	cleanVector(pVectorHeap);
-	free(pVectorHeap); pVectorHeap=NULL;
+	vector_t * pVectorHeap = NULL;
+	if ((pVectorHeap = newVector(10000000000))) {
+		fillVector(pVectorHeap, 2.0);
+		displayVector(pVectorHeap);
+		// clean memory
+		// pVectorHeap : clean internal array + clean struct
+		deleteVector(&pVectorHeap);
+	}
+	printf("\nThe End !");
 }
 

@@ -9,6 +9,7 @@
 #define VECTOR_H_
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct {
 	double * array;
@@ -20,7 +21,7 @@ typedef struct {
  *    - with size elements
  *    - without init value
  */
-void initVector(vector_t *vector, size_t size);
+bool initVector(vector_t *vector, size_t size);
 
 /**
  * allocate new struct vector and its memory area
@@ -39,5 +40,6 @@ void displayVector(const vector_t *vector);
 
 void cleanVector(vector_t *vector);
 
+void deleteVector(vector_t **vector);
 
 #endif /* VECTOR_H_ */
