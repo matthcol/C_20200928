@@ -5,7 +5,10 @@
  *      Author: Matthias
  */
 
+#include <stdio.h>
+
 #include "vector.h"
+
 
 bool initVector(vector_t *vector, size_t size) {
 	double *array = malloc(size*sizeof(double));
@@ -51,7 +54,7 @@ void displayVector(const vector_t *vector){
 		printf("... ");
 		_displayArray("%.3f ", &vector->array[vector->size-5], 5);
 	}
-	printf("]%d", vector->size);
+	printf("]%I64d", vector->size);
 }
 
 void cleanVector(vector_t *vector) {
