@@ -5,7 +5,7 @@
  *      Author: Matthias
  */
 
-#include "list.h";
+#include "list.h"
 
 int main(int argc, char **argv) {
 	list_t * myList = newList(); // empty list
