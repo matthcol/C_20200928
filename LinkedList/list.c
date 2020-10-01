@@ -46,20 +46,98 @@ bool appendList(list_t *list, double value) {
 }
 
 bool insertList(list_t *list, size_t index, double value) {
-
+	if (index > list-> size) {
+		return false;
+	}
+	// create new cell
+	cell_t *cell = newCell(value);
+	if (!cell) {
+		return false;
+	}
+	// insert new cell
+	if (!list->first || index == 0) {
+		// insert at beginning
+		cell->next = list->first; // rest of list or empty list
+		list->first = cell;
+	} else {
+		// insert at index from 1 to size
+		cell_t *current = list->first;
+		// shift index-1 times
+		for (size_t i=1; i<index; i++) {
+			 current = current->next;
+		}
+		// change pointers
+		cell_t * after = current->next;
+		current->next = cell;
+		cell->next = after;
+	}
+	list->size++;
+	return true;
 }
 
 bool removeList(list_t *list, size_t index) {
-	return false;
+	if (index > list-> size) {
+		return false;
+	}
+	// look for cell to remove
+	cell_t *cell = NULL;
+	if (index == 0) {
+		// remove at beginning
+		cell = list->first;
+		list->first = cell->next;
+	} else {
+		// remove at index from 1 to size
+		cell_t *current = list->first;
+		// shift index-1 times
+		for (size_t i=1; i<index; i++) {
+			 current = current->next;
+		}
+		cell = current->next;
+		current->next = cell->next;
+	}
+	// free memory from cell removed
+	free(cell);
+	list->size--;
+	return true;
 }
+
 bool clearList(list_t *list) {
-	return false;
+	// free inside cells
+	cell_t *current = list->first;
+	while (current) {
+		cell_t *next = current->next;
+		free(current);
+		current = next;
+	}
+	// reset struct list
+	list->first = NULL;
+	list->size = 0;
+	return true;
 }
+
 bool setListAt(list_t *list, size_t index, double value) {
-	return false;
+	if (index >= list-> size) {
+		return false;
+	}
+	// look for cell to set
+	cell_t *current = list->first;
+	for (size_t i=0; i<index; i++) {
+		current = current->next;
+	}
+	current->value = value;
+	return true;
 }
+
 double getListAt(list_t *list, size_t index) {
-	return NAN;
+	if (index >= list-> size) {
+		return NAN;
+	}
+	// look for cell to set
+	cell_t *current = list->first;
+	for (size_t i=0; i<index; i++) {
+		current = current->next;
+	}
+	return current->value;
 }
 
 void displayList(list_t *list) {

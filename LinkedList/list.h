@@ -29,6 +29,6 @@ bool insertList(list_t *list, size_t index, double value);
 bool removeList(list_t *list, size_t index);
 bool clearList(list_t *list);
 bool setListAt(list_t *list, size_t index, double value);
-double getListAt(list_t *list, size_t index);
-void displayList(list_t *list);
+double getListAt(const list_t *list, size_t index);
+void displayList(const list_t *list);
 #endif /* LIST_H_ */
