@@ -12,7 +12,7 @@
 #include <stdbool.h>
 
 typedef struct {
-	double * array;
+	double * array;  // pointer to first element internal array
 	size_t size;
 } vector_t;
 
@@ -41,5 +41,10 @@ void displayVector(const vector_t *vector);
 void cleanVector(vector_t *vector);
 
 void deleteVector(vector_t **vector);
+
+bool setVectorAt(vector_t *vector, size_t index, double value);
+//bool getVectorAt(const vector_t *vector, size_t index, double *returnValue); // 1
+double getVectorAt(const vector_t *vector, size_t index); // 2
+
 
 #endif /* VECTOR_H_ */
